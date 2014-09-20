@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images, videos, audio and canvas and the bottom of
+ * their containers: h5bp.com/i/440
+ */
+
+audio,
+canvas,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+html { font-size: $base-font-size; }
+body { background: $bg-color; color: $white; }
+main { @include rem2px(padding, $one-rem*1.5); @include rem2px(max-width, $one-rem*50); margin: 0 auto; }

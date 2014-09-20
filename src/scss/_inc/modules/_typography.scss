@@ -1,0 +1,8 @@
+$base-font: monospace;
+$base-font-weight: 400;
+$base-font-size: 12px;
+
+@mixin font-size($size) {
+	font-size: (parseInt($base-font-size) * parseInt($size)) + px;
+	font-size: $size;
+}

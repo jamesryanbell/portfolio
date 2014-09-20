@@ -1,0 +1,9 @@
+@import 'modules/typography';
+
+html { font: $base-font-weight $base-font-size $base-font; }
+
+code, pre { @include font-size($one-rem); }
+h1, h2 { @include font-size($one-rem); font-weight: normal; display: inline; margin: 0; }
+p { margin: 0; }
+
+em { font-style: normal; }
