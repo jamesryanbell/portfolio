@@ -4,12 +4,8 @@
 @import 'modules/typography';
 @import 'modules/colours';
 
-@import 'partials/normalise';
 @import 'partials/base';
 @import 'partials/typography';
-@import 'partials/forms';
-
-@import 'partials/helpers';
 @import 'partials/print';
 
 main { counter-reset: line-numbers; }
