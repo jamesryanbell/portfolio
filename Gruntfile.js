@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 		/* ==========================================================================
 		   SASS
 		   ========================================================================== */
-		sass: {
+		_sass: {
 			options: {
 				loadPath: [require('node-bourbon').includePaths, 'src/scss/_inc']
 			},
@@ -102,12 +102,12 @@ module.exports = function(grunt) {
 			}
 		},
 
-		_nodesass: {
+		sass: {
 			options: {
 				includePaths: [require('node-bourbon').includePaths, 'src/scss/_inc'],
 				sourceMap: true
 			},
-			target: {
+			dist: {
 				files: [{
 					expand: true,
 					cwd: 'src/scss',
