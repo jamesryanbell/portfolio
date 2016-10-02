@@ -6,23 +6,81 @@
 
 @import 'partials/base';
 @import 'partials/typography';
-@import 'partials/print';
+//@import 'partials/print';
 
-main { counter-reset: line-numbers; }
-pre { margin: 0; overflow: inherit; white-space: normal; word-break: break-word; }
-code { display:block; counter-increment: line-numbers; position: relative; margin: 0; @include rem2px(margin-left, (-$one-rem/2)); }
-	code:before { content: counter(line-numbers); position: absolute; top: 0; bottom: 0; @include rem2px(left, (-$one-rem/2)); color: $line-number; }
-	code pre { display: inline-block; @include rem2px(padding-left, $one-rem); }
 
-.element { color: $element; }
-.comment { color: $comment; }
-	.comment code { @include rem2px(padding-left, $one-rem); white-space: pre-line; }
-	.comment a { color: $comment; }
-.text { color: $white; }
-.logo, .logo a { color: #f7941d; }
-.attr { color: $attr; }
-.quotes { color: $quotes; }
+main {
+		counter-reset: line-numbers;
+}
 
-a { text-decoration: none; color: $white; }
+pre {
+		margin: 0;
+		overflow: inherit;
+		white-space: normal;
+		word-break: break-word;
+}
 
-.bullet { display: list-item; @include rem2px(margin-left, $one-rem/2) }
+code {
+	display:block;
+	counter-increment: line-numbers;
+	position: relative;
+	margin: 0;
+	@include rem2px(margin-left, (-$one-rem/2));
+}
+
+code:before {
+	content: counter(line-numbers);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	@include rem2px(left, (-$one-rem/2));
+	color: $line-number;
+}
+
+code pre {
+	display: inline-block;
+	@include rem2px(padding-left, $one-rem);
+}
+
+.element {
+	color: $element;
+}
+
+.comment {
+	color: $comment;
+}
+
+.comment code {
+	@include rem2px(padding-left, $one-rem);
+	white-space: pre-line;
+}
+
+.comment a {
+	color: $comment;
+}
+
+.text {
+	color: $white;
+}
+
+.logo, .logo a {
+	color: #f7941d;
+}
+
+.attr {
+	color: $attr;
+}
+
+.quotes {
+	color: $quotes;
+}
+
+a {
+	text-decoration: none;
+	color: $white;
+}
+
+.bullet {
+	display: list-item;
+	@include rem2px(margin-left, $one-rem/2);
+}

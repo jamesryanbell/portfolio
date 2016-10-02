@@ -7,4 +7,4 @@
 
 html { font-size: $base-font-size; }
 body { background: $bg-color; color: $white; }
-main { @include rem2px(padding, $one-rem*1.5); @include rem2px(max-width, $one-rem*50); margin: 0 auto; }
+main { @include rem2px(padding, $one-rem*1.5); @include rem2px(max-width, $one-rem*50.8); margin: 0 auto; }

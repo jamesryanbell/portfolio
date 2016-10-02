@@ -3,104 +3,12 @@ module.exports = function(grunt) {
 
 	require('jit-grunt')(grunt);
 
-	var globalConfig = {
-		projectName: 'Template'
-	};
-
-
 	// Project configuration
 	grunt.initConfig({
 
-		globalConfig: globalConfig,
-
 		/* ==========================================================================
-		   IMAGES
-		   ========================================================================== */
-		imagemin: {
-			dynamic: {
-				files: [{
-					expand: true,
-					cwd: 'dist/css/',
-					src: ['**/*.{png,jpg,gif}'],
-					dest: 'dist/css'
-				},
-				{
-					expand: true,
-					cwd: 'dist/img/',
-					src: ['**/*.{png,jpg,gif}'],
-					dest: 'dist/img'
-				},
-				{
-					expand: true,
-					src: 'apple-touch-icon*.png',
-					dest: ''
-				}],
-				options: {
-					pngquant: true
-				}
-			}
-		},
-
-		svgmin: {
-			options: {
-				plugins: [
-					{ removeViewBox: true },
-					{ convertColors: false },
-					{ convertPathData: false }
-				]
-			},
-			dist: {
-				files:[{
-					expand: true,
-					cwd: 'src/img',
-					src: ['**/*.svg'],
-					dest: 'dist/img',
-					ext: '.svg'
-				},
-				{
-					expand: true,
-					cwd: 'src/css/',
-					src: ['**/*.svg'],
-					dest: 'dist/css',
-					ext: '.svg'
-				}]
-			}
-		},
-
-		tinypng: {
-			options: {
-				apiKey: "ImzWe0bazMZmIVhaYODMDV3HBQFFvoWT",
-				checkSigs: true,
-				sigFile: 'src/file_sigs.json',
-				summarize: true,
-				showProgress: true,
-				stopOnImageError: true
-			},
-			compress: {
-				expand: true,
-				cwd: 'src/img/',
-				src: ['**/*.png'],
-				dest: 'dist/img'
-			}
-		},
-
-		/* ==========================================================================
-		   SASS
-		   ========================================================================== */
-		_sass: {
-			options: {
-				loadPath: [require('node-bourbon').includePaths, 'src/scss/_inc']
-			},
-			target: {
-				files: [{
-					expand: true,
-					cwd: 'src/scss',
-					src: ['**/*.scss'],
-					dest: 'dist/css/',
-					ext: '.css'
-				}]
-			}
-		},
+			 SASS
+			 ========================================================================== */
 
 		sass: {
 			options: {
@@ -119,11 +27,10 @@ module.exports = function(grunt) {
 		},
 
 		/* ==========================================================================
-		   CSS
-		   ========================================================================== */
+			 CSS
+			 ========================================================================== */
 		autoprefixer: {
 			options: {
-				browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'ios 6', 'ios 7'],
 				map: true
 			},
 			files: {
@@ -131,61 +38,25 @@ module.exports = function(grunt) {
 			}
 		},
 
-		concat: {
-			css: {
-				src: [
-					'src/css/normalize.css',
-					'src/css/plugins/**/*.css',
-					'src/css/main.css',
-					'src/css/media-queries/xs.css',
-					'src/css/media-queries/s.css',
-					'src/css/media-queries/m.css',
-					'src/css/media-queries/l.css',
-					'src/css/media-queries/xl.css'
-				],
-				dest: 'dist/css/css.css',
-			},
-			js: {
-				src: [
-					'src/js/plugins.js',
-					'src/js/main.js'
-				],
-				dest: 'dist/js/js.js',
-			}
-		},
-
 		cssmin: {
 			compress: {
 				files: {
-					"dist/css/css.css": ["dist/css/css.css"]
+					"dist/css/tidy.min.css": ["dist/css/tidy.css"]
+				}
+			}
+		},
+
+		uncss: {
+			dist: {
+				files: {
+					'dist/css/tidy.css': ['dist/index.html']
 				}
 			}
 		},
 
 		/* ==========================================================================
-		   JS
-		   ========================================================================== */
-		uglify: {
-			js: {
-				src: 'dist/js/js.js',
-				dest: 'dist/js/js.js'
-			}
-		},
-
-		jshint: {
-			options: {
-				reporter: require('jshint-stylish'),
-				browser: true,
-				globals: {
-					jQuery: true
-				}
-			},
-			all: ['Gruntfile.js', 'dist/js.js']
-		},
-
-		/* ==========================================================================
-		   HTML
-		   ========================================================================== */
+			 HTML
+			 ========================================================================== */
 
 		includes: {
 			build: {
@@ -199,85 +70,68 @@ module.exports = function(grunt) {
 			}
 		},
 
-		/* ==========================================================================
-		   UTILS
-		   ========================================================================== */
-
-		sync: {
-			images: {
-				expand: true,
-				cwd: 'src/img/',
-				src: ['**/*', '!**.ini'],
-				dest: 'dist/img/'
-			},
-			css_images: {
-				expand: true,
-				cwd: 'src/css/i/',
-				src: ['**/*', '!**.ini'],
-				dest: 'dist/css/i/'
-			}
+		replace: {
+				dist: {
+						options: {
+								patterns: [
+										{
+												match: 'include_css_style_tag',
+												replacement: '<%= grunt.file.read("dist/css/tidy.css") %>'
+										}
+								]
+						},
+						files: [
+								{expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
+						]
+				}
 		},
+
+		processhtml: {
+				options: {
+					// Task-specific options go here.
+				},
+				build: {
+					files: {
+						'dist/index.html': ['dist/index.html']
+					}
+				},
+		},
+
+		/* ==========================================================================
+			 UTILS
+			 ========================================================================== */
 
 		clean: {
 			css: {
-				src: ["dist/css/**/*.css", "!dist/css/i/**/*", "!dist/css/fonts/**/*"]
+				src: ["dist/css/**/*.css", "!dist/css/i/**/*", "!dist/css/fonts/**/*", "!dist/css/tidy.css"]
 			},
 			js: {
 				src:  ["dist/js/**/*.js", "!dist/js/vendor/**/*"]
 			}
 		},
 
-		compress: {
-			main: {
-				options: {
-					archive: 'exports/<%= globalConfig.projectName %>-' + grunt.template.today('yyyy-mm-dd-HHmmss') + '.zip'
-				},
-				files: [
-					{ src: ['src/**/*', 'dist/**/*'] }
-				]
-			}
-		},
-
 		/* ==========================================================================
-		   WATCH
-		   ========================================================================== */
+			 WATCH
+			 ========================================================================== */
 
 		watch: {
 			main: {
 				files: ['Gruntfile.js'],
 				tasks: 'default'
 			},
-			scripts: {
-				files: ['src/js/**/*.js'],
-				tasks: ['js'],
-				options: {
-					livereload: true
-				}
-			},
-			// css: {
-			// 	files: ['src/css/**/*.css'],
-			// 	tasks: ['css'],
-			// 	options: {
-			// 		livereload: true
-			// 	}
-			// },
 			scss: {
 				files: ['src/scss/**/*.scss'],
 				tasks: ['scss'],
 				options: {
-					livereload: true
+					livereload: false
 				}
 			},
 			html: {
 				files: ['src/pages/**/*.html', 'src/includes/**/*.html'],
 				tasks: ['pages'],
 				options: {
-					livereload: true
+					livereload: false
 				}
-			},
-			images: {
-				files: ['src/img/**/*'],
-				tasks: ['sync:images']
 			},
 			css_images : {
 				files: ['src/css/i/**/*'],
@@ -291,12 +145,9 @@ module.exports = function(grunt) {
 
 	// Default task
 	grunt.registerTask( 'default', ['watch'] );
-	//grunt.registerTask( 'css', ['clean:css', 'newer:concat:css', 'newer:autoprefixer'] );
-	grunt.registerTask( 'scss', ['clean:css', 'newer:sass'] );
-	grunt.registerTask( 'js', ['clean:js', 'newer:concat:js', 'newer:jshint'] );
+	grunt.registerTask( 'scss', ['includes', 'clean:css', 'sass', 'uncss', 'autoprefixer', 'cssmin', 'processhtml'] );
 	grunt.registerTask( 'pages', ['includes'] );
-	grunt.registerTask( 'images', ['imagemin', 'tinypng', 'svgmin'] );
 
-	grunt.registerTask( 'build', ['pages', 'scss', 'js', 'images'] );
-	grunt.registerTask( 'deploy', ['build', 'compress'] );
+	grunt.registerTask( 'build', ['pages', 'scss'] );
+	grunt.registerTask( 'deploy', ['build'] );
 };
