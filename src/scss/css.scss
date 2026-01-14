@@ -1,12 +1,11 @@
-@import 'bourbon';
+@use 'sass:math';
 
-@import 'modules/layout';
-@import 'modules/typography';
-@import 'modules/colours';
+@use '_inc/modules/layout' as *;
+@use '_inc/modules/typography' as *;
+@use '_inc/modules/colours' as *;
 
-@import 'partials/base';
-@import 'partials/typography';
-//@import 'partials/print';
+@use '_inc/partials/base' as *;
+@use '_inc/partials/typography' as *;
 
 
 main {
@@ -25,7 +24,7 @@ code {
 	counter-increment: line-numbers;
 	position: relative;
 	margin: 0;
-	@include rem2px(margin-left, (-$one-rem/2));
+	@include rem2px(margin-left, -(math.div($one-rem, 2)));
 }
 
 code:before {
@@ -33,7 +32,7 @@ code:before {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	@include rem2px(left, (-$one-rem/2));
+	@include rem2px(left, -(math.div($one-rem, 2)));
 	color: $line-number;
 }
 
@@ -82,5 +81,5 @@ a {
 
 .bullet {
 	display: list-item;
-	@include rem2px(margin-left, $one-rem/2);
+	@include rem2px(margin-left, math.div($one-rem, 2));
 }

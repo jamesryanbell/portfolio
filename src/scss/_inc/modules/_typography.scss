@@ -1,8 +1,28 @@
-$base-font: monospace;
+@use 'sass:math';
+@use 'layout' as *;
+
+$base-font: 'DejaVu Sans Mono', 'dejavu_sans_monobook', monospace;
 $base-font-weight: 400;
 $base-font-size: 13px;
+
+@function parseInt($n) {
+	@return math.div($n, ($n * 0 + 1));
+}
 
 @mixin font-size($size) {
 	font-size: (parseInt($base-font-size) * parseInt($size)) + px;
 	font-size: $size;
+}
+
+@mixin rem2px($element, $size) {
+	#{$element}: (parseInt($base-font-size) * parseInt($size)) + px;
+	#{$element}: $size;
+}
+
+@font-face {
+    font-family: 'dejavu_sans_monobook';
+    src: url('../../../fonts/dejavusansmono/dejavusansmono-webfont.woff2') format('woff2'),
+         url('../../../fonts/dejavusansmono/dejavusansmono-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }

@@ -1,3 +1,7 @@
+@use '../modules/layout' as *;
+@use '../modules/typography' as *;
+@use '../modules/colours' as *;
+
 * {
   box-sizing: border-box;
   margin: 0;

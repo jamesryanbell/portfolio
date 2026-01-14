@@ -1,8 +1,13 @@
-@import 'modules/typography';
+@use '../modules/layout' as *;
+@use '../modules/typography' as *;
 
 html { font: $base-font-weight $base-font-size $base-font; }
+body { font-family: $base-font; }
+* { font-family: inherit; }
 
-code, pre { @include font-size($one-rem); }
+code, pre {
+	@include font-size($one-rem);
+}
 h1, h2 { @include font-size($one-rem); font-weight: normal; display: inline; margin: 0; }
 p { margin: 0; }
 
